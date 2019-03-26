@@ -24,7 +24,7 @@ public struct JJStaggeredConfiguration
         self.numColumns = Variable(Int(3))
         self.itemSpacing = Variable(Int(0))
         self.lineSpacing = Variable(Int(0))
-        self.sectionInset = Variable(UIEdgeInsetsMake(0, 0, 0, 0))
+        self.sectionInset = Variable(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         self.positionType = Variable(JJStaggeredGridCellPositionArrangeType.Default)
         self.verticalScroll = Variable(true)
     }

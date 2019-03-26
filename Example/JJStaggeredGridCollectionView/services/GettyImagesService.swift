@@ -16,6 +16,11 @@ enum GettyImagesServices
 
 extension GettyImagesServices: TargetType
 {
+    
+    var headers: [String : String]? {
+        return [:]
+    }
+    
     var baseURL: URL { return URL(string: "https://api.gettyimages.com/v3")!}
     
     var path: String{
@@ -51,7 +56,7 @@ extension GettyImagesServices: TargetType
     {
         switch self {
         case .searchImages:
-            return .request
+            return Task()
         }
     }
     

@@ -20,7 +20,7 @@ open class ViewController: UIViewController {
     var model:[ImgModel]?
     let disposeBag = DisposeBag()
     private let throttleInterval = 0.1
-    var repo = GettyRepositoryFactory.provideRepository(key: Type your Getty Api Key here)
+    var repo = GettyRepositoryFactory.provideRepository(key: "Type your Getty Api Key here")
     var curPage = 1
     var config : JJStaggeredConfiguration = JJStaggeredConfiguration()
     var configVC : ConfigurationViewController?
@@ -136,7 +136,7 @@ open class ViewController: UIViewController {
                 switch event
                 {
                 case let .next(value):
-                    (self.collectionView.collectionViewLayout as! JJStaggeredGridCollectionViewLayout).scrollDirection = value ? UICollectionViewScrollDirection.vertical : UICollectionViewScrollDirection.horizontal
+                    (self.collectionView.collectionViewLayout as! JJStaggeredGridCollectionViewLayout).scrollDirection = value ? UICollectionView.ScrollDirection.vertical : UICollectionView.ScrollDirection.horizontal
                     self.collectionView.reloadData()
                 default:
                     break
@@ -287,11 +287,11 @@ extension ViewController : UICollectionViewDataSource
     }
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let identifier = kind == UICollectionElementKindSectionHeader  ? String(describing: HeaderFooterCollectionReusableView.self) : "HeaderFooterCollectionReusableViewFooter"
+        let identifier = kind == UICollectionView.elementKindSectionHeader  ? String(describing: HeaderFooterCollectionReusableView.self) : "HeaderFooterCollectionReusableViewFooter"
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         if let cellHeaderFooter = cell as? HeaderFooterCollectionReusableView
         {
-            let text = kind == UICollectionElementKindSectionHeader ? "This is the header" : "This is the footer"
+            let text = kind == UICollectionView.elementKindSectionHeader ? "This is the header" : "This is the footer"
             cellHeaderFooter.drawWithText(text:text)
         }
         return cell

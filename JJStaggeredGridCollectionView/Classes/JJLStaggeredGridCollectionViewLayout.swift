@@ -31,10 +31,16 @@ public class JJStaggeredGridCollectionViewLayout: UICollectionViewFlowLayout {
             self.resetMaxPos()
         }
     }
+    @IBInspectable public var cellPositionTypeIns: Int = 0
     /// cell position type to calculate cell positions
-    @IBInspectable public var cellPositionType : JJStaggeredGridCellPositionArrangeType = .Default
-    {
-        didSet{
+    public var cellPositionType: JJStaggeredGridCellPositionArrangeType {
+        
+        get {
+            return JJStaggeredGridCellPositionArrangeType(rawValue: cellPositionTypeIns) ?? .Default
+        }
+        
+        set {
+            cellPositionTypeIns = newValue.rawValue
             self.invalidateLayout()
             self.resetMaxPos()
         }
@@ -65,7 +71,7 @@ extension JJStaggeredGridCollectionViewLayout
             var min = CGFloat.greatestFiniteMagnitude
             for a in 0..<columnPoints.count
             {
-                let colPoint = self.scrollDirection == UICollectionViewScrollDirection.vertical ? columnPoints[a].y : columnPoints[a].x
+                let colPoint = self.scrollDirection == UICollectionView.ScrollDirection.vertical ? columnPoints[a].y : columnPoints[a].x
                 if colPoint < min {
                     minIndex = a
                     min = colPoint
@@ -76,7 +82,7 @@ extension JJStaggeredGridCollectionViewLayout
         }
     }
     
-    static fileprivate func calculateWidthOrHeightToAddEachCell(fullBounds:CGRect, sectionInsets: UIEdgeInsets, numRowsOrCols:Int, interItemSpacing:CGFloat, scrollDirection: UICollectionViewScrollDirection) -> CGSize
+    static fileprivate func calculateWidthOrHeightToAddEachCell(fullBounds:CGRect, sectionInsets: UIEdgeInsets, numRowsOrCols:Int, interItemSpacing:CGFloat, scrollDirection: UICollectionView.ScrollDirection) -> CGSize
     {
         var size = CGSize(width: 0, height: 0)
         switch scrollDirection {
@@ -126,7 +132,7 @@ extension JJStaggeredGridCollectionViewLayout
                 //header
                 let headerFooterIndexPath = IndexPath(row: 0, section: section)
                 self.ensureSuplementaryCanAddValueForIndexPath(dict: &suplementaryViews, indexPath: headerFooterIndexPath)
-                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionHeader] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: headerSize.width, height: headerSize.height))
+                suplementaryViews[headerFooterIndexPath]?[UICollectionView.elementKindSectionHeader] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: headerSize.width, height: headerSize.height))
                 if ( self.scrollDirection == .vertical){
                     minPos.y += headerSize.height
                 }else
@@ -173,7 +179,7 @@ extension JJStaggeredGridCollectionViewLayout
                     minPos.y = 0
                 }
                 self.ensureSuplementaryCanAddValueForIndexPath(dict: &suplementaryViews, indexPath: headerFooterIndexPath)
-                suplementaryViews[headerFooterIndexPath]?[UICollectionElementKindSectionFooter] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: footerSize.width, height: footerSize.height))
+                suplementaryViews[headerFooterIndexPath]?[UICollectionView.elementKindSectionFooter] = NSValue(cgRect:CGRect(x: minPos.x, y: minPos.y, width: footerSize.width, height: footerSize.height))
                 if ( self.scrollDirection == .vertical){
                     minPos.y += footerSize.height + sectionInsets.bottom
                     maxPos[0] = minPos.y      //to take the footer into account for the height

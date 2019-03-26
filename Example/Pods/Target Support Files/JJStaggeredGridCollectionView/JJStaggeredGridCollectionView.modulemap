@@ -1,0 +1,6 @@
+framework module JJStaggeredGridCollectionView {
+  umbrella header "JJStaggeredGridCollectionView-umbrella.h"
+
+  export *
+  module * { export * }
+}

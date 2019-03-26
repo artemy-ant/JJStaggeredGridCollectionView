@@ -1,0 +1,6 @@
+framework module Pods_JJStaggeredGridCollectionView_Example {
+  umbrella header "Pods-JJStaggeredGridCollectionView_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
